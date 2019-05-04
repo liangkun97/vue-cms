@@ -7,7 +7,9 @@
 </script>
 
 <style scoped lang="scss">
-	
+	h1 {
+		color: cyan;
+	}
 </style>
 
 
