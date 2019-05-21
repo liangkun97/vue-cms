@@ -104,7 +104,17 @@
 				this.$router.push({ name: "goodsdesc", params: { id } })
 			},
 			addToShopCar() {
+				// 添加到购物车
 				this.ballFlag = !this.ballFlag
+				// { id: 商品的id, count: 要购买的数量, price: 商品的单价, selected: false }
+				// 拼接出一个要保存到 store 中 car 数组里的商品信息对象
+				var goodsinfo = {
+					id: this.id,
+					count: this.selectedCount,
+					price: this.GoodsInfo.sell_price,
+					selected: true
+				}
+				this.$store.commit("addToCar", goodsinfo)
 			},
 			beforeEnter(el) {
 				el.style.transform = "translate(0, 0)"
@@ -138,7 +148,7 @@
 			},
 			getSelectedCount(count) {
 				this.selectedCount = count
-				console.log("父组件拿到的数量值为： " + this.selectedCount)
+				// console.log("父组件拿到的数量值为： " + this.selectedCount)
 			}
 		},
 		components: {

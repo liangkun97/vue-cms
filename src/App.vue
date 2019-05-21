@@ -1,7 +1,13 @@
 <template>
 	<div class="app-container">
 		
-		<mt-header fixed title="Itcast - vue项目"></mt-header>
+		<!-- <mt-header fixed title="Itcast - vue项目"></mt-header> -->
+		<mt-header fixed title="Itcast - vue项目">
+		  <span @click="goback" slot="left" v-show="flag">
+		    <mt-button icon="back">返回</mt-button>
+		  </span>
+		  <mt-button icon="more" slot="right"></mt-button>
+		</mt-header>
 
 		<transition>
 			<router-view></router-view>
@@ -18,7 +24,7 @@
 				<span class="mui-tab-label">会员</span>
 			</router-link>
 			<router-link class="mui-tab-item-lk" to="/shopcar">
-				<span class="mui-icon mui-icon-extra mui-icon-extra-cart"><span class="mui-badge" id="badge">0</span></span>
+				<span class="mui-icon mui-icon-extra mui-icon-extra-cart"><span class="mui-badge" id="badge">{{ $store.getters.getAllCount }}</span></span>
 				<span class="mui-tab-label">购物车</span>
 			</router-link>
 			<router-link class="mui-tab-item-lk" to="/search">
@@ -30,7 +36,30 @@
 </template>
 
 <script>
-	
+	export default {
+		data() {
+			return {
+				flag: false
+			}
+		},
+		created() {
+			this.flag = this.$route.path === '/home' ? false : true
+		},
+		methods: {
+			goback() {
+				this.$router.go(-1)
+			}
+		},
+		watch: {
+			'$route.path': function (newVal) {
+				if (newVal === '/home') {
+					this.flag = false
+				} else {
+					this.flag = true
+				}
+			}
+		}
+	};
 </script>
 
 <style lang="scss" scoped>
